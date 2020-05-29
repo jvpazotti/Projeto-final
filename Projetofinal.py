@@ -7,19 +7,18 @@ vermelho=(255,0,0)
 verde=(0,255,0)
 azul=(0,0,255)
  
-try:
-    pygame.init()
-except:
-    print("O modulo pygame não foi inicializado com sucesso")
+
+pygame.init()
+
  
-largura=640
-altura=520
-placar=40
+largura=320
+altura=280
+#placar=40
 tamanho = 10
 pos_x=randint(0,(largura-tamanho)/10)*10
-pos_y=randint(placar,(altura-tamanho)/10)*10 
+pos_y=randint(0,(altura-tamanho)/10)*10 
 maca_x=randint(0,(largura-tamanho)/10)*10
-maca_y=randint(placar,(altura-tamanho)/10)*10
+maca_y=randint(0,(altura-tamanho)/10)*10
 velocidade_x=0
 velocidade_y=0
 CobraXY=[]
@@ -29,7 +28,8 @@ pontos=0
 fps = pygame.time.Clock()
 fundo = pygame.display.set_mode((largura,altura))
 pygame.display.set_caption("Jogo Snake")
-fonte_texto=pygame.font.SysFont(None, 32)
+fonte_texto=pygame.font.SysFont(None, 35)
+fonte_texto2=pygame.font.SysFont(None, 30)
 texto=fonte_texto.render('Game Over',True,vermelho)
  
 jogo = True
@@ -42,7 +42,7 @@ while jogo:
     CobraInicio.append(pos_x)
     CobraInicio.append(pos_y)
     CobraXY.append(CobraInicio)
-    texto2=fonte_texto.render('Pontuação : '+ str(pontos),True,branco)
+    texto2=fonte_texto2.render('Pontuação : '+ str(pontos),True,branco)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             jogo = False
@@ -60,8 +60,8 @@ while jogo:
                 velocidade_x=0
                 velocidade_y=tamanho
     
-    pygame.draw.rect(fundo,preto,[0,0,largura,placar])
-    fundo.blit(texto2,[placar/4,placar/4])
+    #pygame.draw.rect(fundo,preto,[0,0,largura,placar])
+    fundo.blit(texto2,[10,10])
 
 
     pos_x+=velocidade_x
@@ -76,7 +76,7 @@ while jogo:
     
     if pos_x == maca_x and pos_y == maca_y:
         maca_x=randint(0,(largura-tamanho)/10)*10
-        maca_y=randint(placar,(altura-tamanho)/10)*10
+        maca_y=randint(0,(altura-tamanho)/10)*10
         Cobracomp+=1
         pontos+=1
     
@@ -85,7 +85,7 @@ while jogo:
 
     while fimdejogo:
         fundo.fill(preto)
-        fundo.blit(texto,[largura/10,altura/2])
+        fundo.blit(texto,[95,130])
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -93,13 +93,13 @@ while jogo:
                 fimdejogo= False
 
     
-if pos_x + tamanho> largura:
+    if pos_x + tamanho> largura:
         fimdejogo=True
     if pos_x < 0:
         fimdejogo=True
     if pos_y + tamanho> altura:
         fimdejogo=True
-    if pos_y < placar:
+    if pos_y < 0:
         fimdejogo=True
 
     
