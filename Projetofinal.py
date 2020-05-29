@@ -75,70 +75,61 @@ text2 = Texto("Pontuação: ", branco, 30)
 while jogo:
     fps.tick(15)
     fundo.fill(azul)
-    CobraInicio=[]
-    CobraInicio.append(pos_x)
-    CobraInicio.append(pos_y)
-    CobraXY.append(CobraInicio)
-    texto2=fonte_texto2.render('Pontuação : '+ str(pontos),True,branco)
+    snake.movimento_c()
+    text2.aparece_na_tela2(10,10)
+ 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             jogo = False
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT and velocidade_x != tamanho:
-                velocidade_y=0
-                velocidade_x=-tamanho
-            if event.key == pygame.K_RIGHT and velocidade_x != -tamanho:
-                velocidade_y=0
-                velocidade_x=tamanho
-            if event.key == pygame.K_UP and velocidade_y != tamanho:
-                velocidade_x=0
-                velocidade_y=-tamanho
-            if event.key == pygame.K_DOWN and velocidade_y != -tamanho:
-                velocidade_x=0
-                velocidade_y=tamanho
-    
-    #pygame.draw.rect(fundo,preto,[0,0,largura,placar])
-    fundo.blit(texto2,[10,10])
+            if event.key == pygame.K_LEFT and snake.vel_x != tamanho:
+                snake.vel_y = 0
+                snake.vel_x = -tamanho
+            if event.key == pygame.K_RIGHT and snake.vel_x != -tamanho:
+                snake.vel_y = 0
+                snake.vel_x = tamanho
+            if event.key == pygame.K_UP and snake.vel_y != tamanho:
+                snake.vel_x = 0
+                snake.vel_y = -tamanho
+            if event.key == pygame.K_DOWN and snake.vel_y != -tamanho:
+                snake.vel_x = 0
+                snake.vel_y = tamanho
+ 
+    snake.x += snake.vel_x
+    snake.y += snake.vel_y
 
+    apple.imagem_m()
 
-    pos_x+=velocidade_x
-    pos_y+=velocidade_y
-    pygame.draw.rect(fundo, vermelho, [maca_x, maca_y, tamanho, tamanho])
-    
-    if len(CobraXY) > Cobracomp:
-        del CobraXY[0]
-   
-    for XY in CobraXY:
-        pygame.draw.rect(fundo,verde,[XY[0],XY[1],tamanho,tamanho])
-    
-    if pos_x == maca_x and pos_y == maca_y:
-        maca_x=randint(0,(largura-tamanho)/10)*10
-        maca_y=randint(0,(altura-tamanho)/10)*10
-        Cobracomp+=1
-        pontos+=1
-    
-    if any(Bloco == CobraInicio for Bloco in CobraXY[:-1]):
-        fimdejogo = True
+    snake.resto()
+ 
+    snake.imagem_c()
+ 
+    if snake.x == apple.x and snake.y == apple.y:
+        apple.x = randint(0,(largura-tamanho)/10)*10
+        apple.y = randint(0,(altura-tamanho)/10)*10
+        snake.cobra_comp += 1
+        snake.pontos += 1
 
+    snake.morte() 
+ 
     while fimdejogo:
         fundo.fill(preto)
-        fundo.blit(texto,[95,130])
+        text.aparece_na_tela(95,130)
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 jogo = False
                 fimdejogo= False
-
+        
+    if snake.x + tamanho> largura:
+        fimdejogo=True
+    if snake.x < 0:
+        fimdejogo=True
+    if snake.y + tamanho> altura:
+        fimdejogo=True
+    if snake.y < 0:
+        fimdejogo=True
     
-    if pos_x + tamanho> largura:
-        fimdejogo=True
-    if pos_x < 0:
-        fimdejogo=True
-    if pos_y + tamanho> altura:
-        fimdejogo=True
-    if pos_y < 0:
-        fimdejogo=True
+pygame.display.update()
 
-    
-
-    pygame.display.update()
+​
