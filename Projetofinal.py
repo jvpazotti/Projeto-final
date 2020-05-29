@@ -130,6 +130,6 @@ while jogo:
     if snake.y < 0:
         fimdejogo=True
     
-pygame.display.update()
+    pygame.display.update()
 
 ​
