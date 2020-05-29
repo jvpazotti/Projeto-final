@@ -59,3 +59,49 @@ while jogo:
             if event.key == pygame.K_DOWN and velocidade_y != -tamanho:
                 velocidade_x=0
                 velocidade_y=tamanho
+    
+    pygame.draw.rect(fundo,preto,[0,0,largura,placar])
+    fundo.blit(texto2,[placar/4,placar/4])
+
+
+    pos_x+=velocidade_x
+    pos_y+=velocidade_y
+    pygame.draw.rect(fundo, vermelho, [maca_x, maca_y, tamanho, tamanho])
+    
+    if len(CobraXY) > Cobracomp:
+        del CobraXY[0]
+   
+    for XY in CobraXY:
+        pygame.draw.rect(fundo,verde,[XY[0],XY[1],tamanho,tamanho])
+    
+    if pos_x == maca_x and pos_y == maca_y:
+        maca_x=randint(0,(largura-tamanho)/10)*10
+        maca_y=randint(placar,(altura-tamanho)/10)*10
+        Cobracomp+=1
+        pontos+=1
+    
+    if any(Bloco == CobraInicio for Bloco in CobraXY[:-1]):
+        fimdejogo = True
+
+    while fimdejogo:
+        fundo.fill(preto)
+        fundo.blit(texto,[largura/10,altura/2])
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                jogo = False
+                fimdejogo= False
+
+    
+if pos_x + tamanho> largura:
+        fimdejogo=True
+    if pos_x < 0:
+        fimdejogo=True
+    if pos_y + tamanho> altura:
+        fimdejogo=True
+    if pos_y < placar:
+        fimdejogo=True
+
+    
+
+    pygame.display.update()
