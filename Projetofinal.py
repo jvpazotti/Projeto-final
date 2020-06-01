@@ -1,9 +1,8 @@
 import pygame
 from random import randint
-
+ 
 pygame.init() 
-
-
+ 
 branco=(255,255,255)
 preto=(0,0,0)
 vermelho=(255,0,0)
@@ -17,7 +16,7 @@ pontos = 0
 fps = pygame.time.Clock()
 fundo = pygame.display.set_mode((largura,altura))
 pygame.display.set_caption("Jogo Snake")
-
+ 
 class Texto:
     def __init__(self, mensagem, cor, tamanho,pontos=0):
         self.fonte_texto = pygame.font.SysFont(None, tamanho)
@@ -33,8 +32,7 @@ class Texto:
     def atualiza_pontos(self,pontos):
         self.texto2 = self.fonte_texto.render(self.mensagem+str(pontos) , True, self.cor)  
     
-
-
+ 
 class Maca:
     def __init__(self):
         self.x = randint(0,(largura-tamanho)/10)*10
@@ -44,7 +42,7 @@ class Maca:
     def posicao_m(self):
         self.x = randint(0,(largura-tamanho)/10)*10
         self.y = randint(0,(altura-tamanho)/10)*10
-
+ 
 class Cobra:
     def __init__(self):
         self.x = randint(0,(largura-tamanho)/10)*10
@@ -55,6 +53,7 @@ class Cobra:
         self.cobra_comp = 1
         self.cobra_0 = []
         self.pontos = 0
+        self.fimdejogo = False
     def movimento_c(self):
         self.cobra_0 = [self.x,self.y]
         self.cobra_xy.append(self.cobra_0) 
@@ -72,12 +71,12 @@ class Cobra:
        
 jogo = True
 fimdejogo= False
-
+ 
 snake = Cobra()
 apple = Maca()
 text = Texto("Game Over", vermelho, 35)
 text2 = Texto("Pontuação: " , branco, 27)
-
+ 
 while jogo:
     fps.tick(15)
     fundo.fill(azul)
@@ -103,9 +102,9 @@ while jogo:
  
     snake.x += snake.vel_x
     snake.y += snake.vel_y
-
+ 
     apple.imagem_m()
-
+ 
     snake.resto()
  
     snake.imagem_c()
@@ -118,26 +117,24 @@ while jogo:
         snake.cobra_comp += 1
         snake.pontos += 1
         text2.atualiza_pontos(snake.pontos)
-    
-
- 
     while fimdejogo:
-        fundo.fill(preto)
-        text.aparece_na_tela(95,130)
-        pygame.display.update()
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                jogo = False
-                fimdejogo= False
-        
+            fundo.fill(preto)
+            text.aparece_na_tela(95,130)
+            pygame.display.update()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    jogo = False
+                    fimdejogo= False
+            
     if snake.x + tamanho> largura:
-        fimdejogo=True
+            fimdejogo=True
     if snake.x < 0:
-        fimdejogo=True
+            fimdejogo=True
     if snake.y + tamanho> altura:
-        fimdejogo=True
+            fimdejogo=True
     if snake.y < 0:
-        fimdejogo=True
-    
+            fimdejogo=True
+    if snake.fimdejogo == True:
+            fimdejogo=True
+        
     pygame.display.update()
-
