@@ -1,5 +1,6 @@
 import pygame
 from random import randint
+
 pygame.init() 
 
 
@@ -18,15 +19,20 @@ fundo = pygame.display.set_mode((largura,altura))
 pygame.display.set_caption("Jogo Snake")
 
 class Texto:
-    def __init__(self, mensagem, cor, tamanho):
+    def __init__(self, mensagem, cor, tamanho,pontos=0):
         self.fonte_texto = pygame.font.SysFont(None, tamanho)
-        self.texto = self.fonte_texto.render(mensagem, True, cor)
-        self.texto2 = self.fonte_texto.render(mensagem + str(snake.pontos), True, cor)  
+        self.cor=cor
+        self.mensagem=mensagem
+        self.texto = self.fonte_texto.render(self.mensagem, True, self.cor)
+        self.texto2 = self.fonte_texto.render(self.mensagem+str(pontos) , True, self.cor)  
       
     def aparece_na_tela(self, x, y):
         fundo.blit(self.texto, [x,y])
     def aparece_na_tela2(self, x, y):
         fundo.blit(self.texto2, [x,y])
+    def atualiza_pontos(self,pontos):
+        self.texto2 = self.fonte_texto.render(self.mensagem+str(pontos) , True, self.cor)  
+    
 
 
 class Maca:
@@ -41,8 +47,8 @@ class Maca:
 
 class Cobra:
     def __init__(self):
-        self.x = randint(tamanho,(largura-tamanho)/10)*10
-        self.y = randint(tamanho,(altura-tamanho)/10)*10
+        self.x = randint(0,(largura-tamanho)/10)*10
+        self.y = randint(0,(altura-tamanho)/10)*10
         self.vel_x = 0
         self.vel_y = 0
         self.cobra_xy = []
@@ -70,7 +76,7 @@ fimdejogo= False
 snake = Cobra()
 apple = Maca()
 text = Texto("Game Over", vermelho, 35)
-text2 = Texto("Pontuação: ", branco, 30)
+text2 = Texto("Pontuação: " , branco, 27)
 
 while jogo:
     fps.tick(15)
@@ -104,13 +110,16 @@ while jogo:
  
     snake.imagem_c()
  
+    snake.morte() 
+ 
     if snake.x == apple.x and snake.y == apple.y:
         apple.x = randint(0,(largura-tamanho)/10)*10
         apple.y = randint(0,(altura-tamanho)/10)*10
         snake.cobra_comp += 1
         snake.pontos += 1
+        text2.atualiza_pontos(snake.pontos)
+    
 
-    snake.morte() 
  
     while fimdejogo:
         fundo.fill(preto)
@@ -132,4 +141,3 @@ while jogo:
     
     pygame.display.update()
 
-​
