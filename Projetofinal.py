@@ -1,7 +1,7 @@
 import pygame
 from random import randint
 import os
- 
+
 pygame.init() 
  
 branco=(255,255,255)
@@ -18,11 +18,11 @@ fps = pygame.time.Clock()
 fundo = pygame.display.set_mode((largura,altura))
 pygame.display.set_caption("Jogo Snake")
  
-arquivo=os.path.join('C:/Users/Gamer/Music','Sexy And I Know It-LMFAO (Instrumental).mp3')
-pygame.mixer.music.load(arquivo)
-pygame.mixer.music.set_volume(0.1)
-pygame.mixer.music.play(-1)
-
+#arquivo=os.path.join('C:/Users/Gamer/Music','Sexy And I Know It-LMFAO (Instrumental).mp3')
+#pygame.mixer.music.load(arquivo)
+#pygame.mixer.music.set_volume(0.1)
+#pygame.mixer.music.play(-1)
+terra_fundo = os.path.join('C:/Users/rafae/Documents/Insper/DesSoft/Projeto final/Projeto-final', 'fundo do jogo.jpg') 
 
 class Texto:
     def __init__(self, mensagem, cor, tamanho,pontos=0):
@@ -86,7 +86,7 @@ text2 = Texto("Pontuação: " , branco, 27)
  
 while jogo:
     fps.tick(15)
-    fundo.fill(azul)
+    fundo.fill(terra_fundo)
     snake.movimento_c()
     text2.aparece_na_tela2(10,10)
     
