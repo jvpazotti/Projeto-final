@@ -18,11 +18,12 @@ fps = pygame.time.Clock()
 fundo = pygame.display.set_mode((largura,altura))
 pygame.display.set_caption("Jogo Snake")
  
-#arquivo=os.path.join('C:/Users/Gamer/Music','Sexy And I Know It-LMFAO (Instrumental).mp3')
-#pygame.mixer.music.load(arquivo)
-#pygame.mixer.music.set_volume(0.1)
-#pygame.mixer.music.play(-1)
-terra_fundo = os.path.join('C:/Users/rafae/Documents/Insper/DesSoft/Projeto final/Projeto-final', 'fundo do jogo.jpg') 
+arquivo=os.path.join('Music','Sexy And I Know It-LMFAO (Instrumental).mp3')
+pygame.mixer.music.load(arquivo)
+pygame.mixer.music.set_volume(0.1)
+pygame.mixer.music.play(-1)
+terra_fundo = pygame.image.load('img/fundo do jogo.jpg').convert() 
+terra_fundo = pygame.transform.scale(terra_fundo,(largura,altura)) 
 
 class Texto:
     def __init__(self, mensagem, cor, tamanho,pontos=0):
@@ -83,11 +84,10 @@ snake = Cobra()
 apple = Maca()
 text = Texto("Game Over", vermelho, 35)
 text2 = Texto("Pontuação: " , branco, 27)
- 
+
 while jogo:
-    
     fps.tick(15)
-    fundo.fill(terra_fundo)
+    fundo.blit(terra_fundo,(0,0)) 
     snake.movimento_c()
     text2.aparece_na_tela2(10,10)
     
@@ -128,13 +128,13 @@ while jogo:
         snake.pontos += 1
         text2.atualiza_pontos(snake.pontos)
     while fimdejogo:
-        fundo.fill(preto)
-        text.aparece_na_tela(95,130)
-        pygame.display.update()
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                jogo = False
-                fimdejogo= False
+            fundo.fill(preto)
+            text.aparece_na_tela(95,130)
+            pygame.display.update()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    jogo = False
+                    fimdejogo= False
             
     if snake.x + tamanho> largura:
             fimdejogo=True
@@ -146,12 +146,6 @@ while jogo:
             fimdejogo=True
     if snake.fimdejogo == True:
             fimdejogo=True
-    if fimdejogo==True:
-        pygame.mixer.music.pause()
-        pygame.mixer.music.load('Musica de morte.mp3')
-        pygame.mixer.music.set_volume(0.8)
-        pygame.mixer.music.play(-1)
-    
-
+ 
     pygame.display.update()
     
