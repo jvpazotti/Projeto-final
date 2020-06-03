@@ -128,7 +128,6 @@ while jogo:
         snake.pontos += 1
         text2.atualiza_pontos(snake.pontos)
     while fimdejogo:
-        pygame.mixer.music.pause()
         fundo.fill(preto)
         text.aparece_na_tela(95,130)
         pygame.display.update()
@@ -147,7 +146,12 @@ while jogo:
             fimdejogo=True
     if snake.fimdejogo == True:
             fimdejogo=True
-
+    if fimdejogo==True:
+        pygame.mixer.music.pause()
+        pygame.mixer.music.load('Musica de morte.mp3')
+        pygame.mixer.music.set_volume(0.8)
+        pygame.mixer.music.play(-1)
+    
 
     pygame.display.update()
     
