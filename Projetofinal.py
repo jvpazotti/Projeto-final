@@ -85,6 +85,7 @@ text = Texto("Game Over", vermelho, 35)
 text2 = Texto("Pontuação: " , branco, 27)
  
 while jogo:
+    
     fps.tick(15)
     fundo.fill(terra_fundo)
     snake.movimento_c()
@@ -127,13 +128,13 @@ while jogo:
         snake.pontos += 1
         text2.atualiza_pontos(snake.pontos)
     while fimdejogo:
-            fundo.fill(preto)
-            text.aparece_na_tela(95,130)
-            pygame.display.update()
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    jogo = False
-                    fimdejogo= False
+        fundo.fill(preto)
+        text.aparece_na_tela(95,130)
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                jogo = False
+                fimdejogo= False
             
     if snake.x + tamanho> largura:
             fimdejogo=True
@@ -145,6 +146,12 @@ while jogo:
             fimdejogo=True
     if snake.fimdejogo == True:
             fimdejogo=True
- 
+    if fimdejogo==True:
+        pygame.mixer.music.pause()
+        pygame.mixer.music.load('Musica de morte.mp3')
+        pygame.mixer.music.set_volume(0.8)
+        pygame.mixer.music.play(-1)
+    
+
     pygame.display.update()
     
