@@ -17,7 +17,8 @@ pontos = 0
 fps = pygame.time.Clock()
 fundo = pygame.display.set_mode((largura,altura))
 pygame.display.set_caption("Jogo Snake")
- 
+
+arquivo1=os.path.join('Music','morte mario.mp3')
 arquivo=os.path.join('Music','Sexy And I Know It-LMFAO (Instrumental).mp3')
 pygame.mixer.music.load(arquivo)
 pygame.mixer.music.set_volume(0.1)
@@ -146,6 +147,12 @@ while jogo:
             fimdejogo=True
     if snake.fimdejogo == True:
             fimdejogo=True
- 
+    if fimdejogo == True:
+
+        pygame.mixer.music.pause()
+        pygame.mixer.music.load(arquivo1)
+        pygame.mixer.music.set_volume(0.1) 
+        pygame.mixer.music.play(1)
+
     pygame.display.update()
     
