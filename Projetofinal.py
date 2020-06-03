@@ -1,5 +1,6 @@
 import pygame
 from random import randint
+import os
  
 pygame.init() 
  
@@ -17,6 +18,12 @@ fps = pygame.time.Clock()
 fundo = pygame.display.set_mode((largura,altura))
 pygame.display.set_caption("Jogo Snake")
  
+arquivo=os.path.join('C:/Users/Gamer/Music','Sexy And I Know It-LMFAO (Instrumental).mp3')
+pygame.mixer.music.load(arquivo)
+pygame.mixer.music.set_volume(0.1)
+pygame.mixer.music.play(-1)
+
+
 class Texto:
     def __init__(self, mensagem, cor, tamanho,pontos=0):
         self.fonte_texto = pygame.font.SysFont(None, tamanho)
@@ -82,7 +89,7 @@ while jogo:
     fundo.fill(azul)
     snake.movimento_c()
     text2.aparece_na_tela2(10,10)
- 
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             jogo = False
@@ -99,7 +106,9 @@ while jogo:
             if event.key == pygame.K_DOWN and snake.vel_y != -tamanho:
                 snake.vel_x = 0
                 snake.vel_y = tamanho
- 
+    
+    
+    
     snake.x += snake.vel_x
     snake.y += snake.vel_y
  
@@ -136,5 +145,6 @@ while jogo:
             fimdejogo=True
     if snake.fimdejogo == True:
             fimdejogo=True
-        
+ 
     pygame.display.update()
+    
