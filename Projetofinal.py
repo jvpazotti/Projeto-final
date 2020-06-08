@@ -4,6 +4,7 @@ import os
 
 pygame.init() 
  
+#definimos as cores que utilizamos nos textos , na cobra e na maçã
 branco=(255,255,255)
 preto=(0,0,0)
 vermelho=(255,0,0)
@@ -14,10 +15,11 @@ largura=320
 altura=280
 placar=40
 pontos = 0
+#definimos tela do jogo(seu tamanho), o nome do jogo e o fps
 fps = pygame.time.Clock()
 fundo = pygame.display.set_mode((largura,altura))
 pygame.display.set_caption("Jogo Snake")
-
+#colocamos as músicas e a imagem do fundo do jogo
 arquivo1=os.path.join('Music','morte mario.mp3')
 arquivo=os.path.join('Music','Sexy And I Know It-LMFAO (Instrumental).mp3')
 pygame.mixer.music.load(arquivo)
@@ -26,6 +28,8 @@ pygame.mixer.music.play(-1)
 terra_fundo = pygame.image.load('img/fundo do jogo.jpg').convert() 
 terra_fundo = pygame.transform.scale(terra_fundo,(largura,altura)) 
 
+
+#definimos o que o nosso texto é composto a partir da seguinte classe
 class Texto:
     def __init__(self, mensagem, cor, tamanho,pontos=0):
         self.fonte_texto = pygame.font.SysFont(None, tamanho)
@@ -41,7 +45,7 @@ class Texto:
     def atualiza_pontos(self,pontos):
         self.texto2 = self.fonte_texto.render(self.mensagem+str(pontos) , True, self.cor)  
     
- 
+#definimos o que a nossa maçã é composta a partir da seguinte classe 
 class Maca:
     def __init__(self):
         self.x = randint(0,(largura-tamanho)/10)*10
@@ -131,6 +135,7 @@ while jogo:
     while fimdejogo:
             fundo.fill(preto)
             text.aparece_na_tela(95,130)
+            text2.aparece_na_tela2(95,160)
             pygame.display.update()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
