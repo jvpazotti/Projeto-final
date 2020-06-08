@@ -1,6 +1,7 @@
 import pygame
 from random import randint
-
+from pygame import mixer
+ 
 pygame.init() 
 
 
@@ -17,7 +18,7 @@ pontos = 0
 fps = pygame.time.Clock()
 fundo = pygame.display.set_mode((largura,altura))
 pygame.display.set_caption("Jogo Snake")
-
+ 
 class Texto:
     def __init__(self, mensagem, cor, tamanho,pontos=0):
         self.fonte_texto = pygame.font.SysFont(None, tamanho)
@@ -25,7 +26,9 @@ class Texto:
         self.mensagem=mensagem
         self.texto = self.fonte_texto.render(self.mensagem, True, self.cor)
         self.texto2 = self.fonte_texto.render(self.mensagem+str(pontos) , True, self.cor)  
-      
+    mixer.init()
+    mixer.music.load('C:/Users/andre/Downloads/Sexy And I Know It-LMFAO (Instrumental).mp3')
+    mixer.music.play()  
     def aparece_na_tela(self, x, y):
         fundo.blit(self.texto, [x,y])
     def aparece_na_tela2(self, x, y):
@@ -33,8 +36,7 @@ class Texto:
     def atualiza_pontos(self,pontos):
         self.texto2 = self.fonte_texto.render(self.mensagem+str(pontos) , True, self.cor)  
     
-
-
+ 
 class Maca:
     def __init__(self):
         self.x = randint(0,(largura-tamanho)/10)*10
@@ -44,7 +46,7 @@ class Maca:
     def posicao_m(self):
         self.x = randint(0,(largura-tamanho)/10)*10
         self.y = randint(0,(altura-tamanho)/10)*10
-
+ 
 class Cobra:
     def __init__(self):
         self.x = randint(0,(largura-tamanho)/10)*10
@@ -73,18 +75,18 @@ class Cobra:
        
 jogo = True
 fimdejogo= False
-
+ 
 snake = Cobra()
 apple = Maca()
 text = Texto("Game Over", vermelho, 35)
 text2 = Texto("Pontuação: " , branco, 27)
-
+ 
 while jogo:
     fps.tick(15)
-    fundo.fill(azul)
+    fundo.fill'(azul)
     snake.movimento_c()
     text2.aparece_na_tela2(10,10)
- 
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             jogo = False
@@ -104,9 +106,9 @@ while jogo:
  
     snake.x += snake.vel_x
     snake.y += snake.vel_y
-
+ 
     apple.imagem_m()
-
+ 
     snake.resto()
  
     snake.imagem_c()
@@ -119,27 +121,28 @@ while jogo:
         snake.cobra_comp += 1
         snake.pontos += 1
         text2.atualiza_pontos(snake.pontos)
-    
-
- 
     while fimdejogo:
-        fundo.fill(preto)
-        text.aparece_na_tela(95,130)
-        pygame.display.update()
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                jogo = False
-                fimdejogo= False
-        
+            fundo.fill(preto)
+            text.aparece_na_tela(95,130)
+            pygame.display.update()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    jogo = False
+                    fimdejogo= False
+            
     if snake.x + tamanho> largura:
-        fimdejogo=True
+            fimdejogo=True
     if snake.x < 0:
-        fimdejogo=True
+            fimdejogo=True
     if snake.y + tamanho> altura:
-        fimdejogo=True
+            fimdejogo=True
     if snake.y < 0:
-        fimdejogo=True
+            fimdejogo=True
     if snake.fimdejogo == True:
-        fimdejogo=True
-    
+            fimdejogo=True
+    if fimdejogo == True:
+        pygame.mixer.music.pause()
+        mixer.music.load('C:/Users/andre/Downloads/JV.mp3')
+        mixer.music.play()
+
     pygame.display.update()
