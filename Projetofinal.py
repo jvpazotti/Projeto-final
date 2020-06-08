@@ -13,14 +13,11 @@ def main():
     preto=(0,0,0)
     vermelho=(255,0,0)
     verde=(0,255,0)
-    azul=(0,0,255)
 
     # definimos variáveis para tela do jogo e cobra
     tamanho = 10 
     largura=320
     altura=280
-    placar=40
-    pontos = 0
 
     #definimos o fps, tela do jogo(seu tamanho) e o nome do jogo 
     fps = pygame.time.Clock()
