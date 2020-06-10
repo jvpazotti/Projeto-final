@@ -30,7 +30,7 @@ def main():
     pygame.mixer.music.load(arquivo)
     pygame.mixer.music.set_volume(0.1)
     pygame.mixer.music.play(-1)
-    terra_tela = pygame.image.load('img/fundo do jogo.jpg').convert() 
+    terra_tela = pygame.image.load('img/fundo do jogo.png').convert() 
     terra_tela = pygame.transform.scale(terra_tela,(largura,altura)) 
 
 
