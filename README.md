@@ -17,7 +17,7 @@ Formas de perder o jogo = Colisão com os limites do jogo ou com o próprio corp
 
 https://github.com/Guilhermeasper/SnakePygame
 
-# Link do jogo em funcionamento:
+# Link do vídeo do jogo em funcionamento:
 https://youtu.be/IpB9Sfa_XTI
 
 # Integrantes do grupo: 
