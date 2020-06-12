@@ -1,9 +1,9 @@
 # Projeto Final - Design de Software
 
-JOGO DA COBRA
+# JOGO DA COBRA
 
 
-Instruções do jogo:
+# Instruções do jogo:
 
 Movimentação = Seta para cima, seta para baixo, seta para esquerda e seta para direita;
 
