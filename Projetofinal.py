@@ -13,6 +13,7 @@ def main():
     preto=(0,0,0)
     vermelho=(255,0,0)
     verde=(0,255,0)
+    azul=(0,0,255)
 
     # definimos variáveis para tela do jogo e cobra
     tamanho = 10 
@@ -45,8 +46,11 @@ def main():
         
         def aparece_na_tela(self, x, y):
             tela.blit(self.texto, [x,y])
+        
         def aparece_na_tela2(self, x, y):
             tela.blit(self.texto2, [x,y])
+        
+        
         def atualiza_pontos(self,pontos):
             self.texto2 = self.fonte_texto.render(self.mensagem+str(pontos) , True, self.cor)  
         
@@ -87,7 +91,18 @@ def main():
         def morte(self):
             if any(Bloco == self.cobra_0 for Bloco in self.cobra_xy[:-1]):
                 self.fimdejogo = True
-
+        
+        def recomeco(self):
+            self.x = randint(0,(largura-tamanho)/10)*10
+            self.y = randint(0,(altura-tamanho)/10)*10
+            self.vel_x = 0
+            self.vel_y = 0
+            self.cobra_xy = []
+            self.cobra_comp = 1
+            self.cobra_0 = []
+            self.pontos = 0
+            self.fimdejogo = False
+            
     # criamos variaveis para iniciar/encerrar o loop 
     jogo = True
     fimdejogo= False
@@ -97,15 +112,18 @@ def main():
     apple = Maca()
     text = Texto("Game Over", vermelho, 35)
     text2 = Texto("Pontuação: " , branco, 27)
+    text3 = Texto("Aperte espaço",branco,27)
+    text4 = Texto("Deseja continuar?",branco,27)
+    
 
     # iniciamos loop do jogo
-    while jogo:
 
+    while jogo:
         # aplicação dos parâmetros no loop
         fps.tick(15)
         tela.blit(terra_tela,(0,0)) 
         snake.movimento_c()
-        text2.aparece_na_tela2(10,10)
+        text2.aparece_na_tela2(90,5)
         
         # movimentação com as teclas
         for event in pygame.event.get():
@@ -149,11 +167,24 @@ def main():
                 tela.fill(preto)
                 text.aparece_na_tela(95,130)
                 text2.aparece_na_tela2(95,160)
+                text3.aparece_na_tela(175,210)
+                text4.aparece_na_tela(5,210)
                 pygame.display.update()
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         jogo = False
                         fimdejogo= False
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_SPACE:
+                            fimdejogo=False
+                            jogo=True
+                            snake.recomeco()
+                            text2.atualiza_pontos(snake.pontos)
+                            pygame.mixer.music.load(arquivo)
+                            pygame.mixer.music.set_volume(0.1)
+                            pygame.mixer.music.play(-1)
+        
+                            
 
         # definição da colisão da cobra com as paredes        
         if snake.x + tamanho> largura:
