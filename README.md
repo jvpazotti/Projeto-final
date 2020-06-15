@@ -14,7 +14,7 @@ Retornar ao jogo após perder: Apertar tecla Espaço
 
 Movimentação: Seta para cima, seta para baixo, seta para esquerda e seta para direita;
 
-Pontuação: A cada maça comida recebe um ponto;
+Pontuação: A cada maçã comida recebe um ponto;
 
 Formas de perder o jogo: Colisão com os limites do jogo ou com o próprio corpo;
 
