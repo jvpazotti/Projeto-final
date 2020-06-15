@@ -26,7 +26,7 @@ https://github.com/Guilhermeasper/SnakePygame
 
 # Link do vídeo do jogo em funcionamento (no Youtube):
 
-
+https://youtu.be/fAp2nxPbcYg
 
 # Integrantes do grupo: 
 André Faia, João Victor Pazotti e Rafael Madarás
