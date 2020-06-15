@@ -104,8 +104,9 @@ def main():
             self.fimdejogo = False
             
     # criamos variaveis para iniciar/encerrar o loop 
-    jogo = True
-    fimdejogo= False
+    jogo = False
+    fimdejogo = False
+    antesdojogo = True
 
     # criamos os objetos para as classes
     snake = Cobra()
@@ -114,98 +115,114 @@ def main():
     text2 = Texto("Pontuação: " , branco, 27)
     text3 = Texto("Aperte espaço",branco,27)
     text4 = Texto("Deseja continuar?",branco,27)
-    
+    text5= Texto("Snake Game",branco,35)
+    text6= Texto("Aperte C para começar",branco,27)
 
-    # iniciamos loop do jogo
-
-    while jogo:
-        # aplicação dos parâmetros no loop
-        fps.tick(15)
+    #tela inicial do jogo
+    while antesdojogo:
         tela.blit(terra_tela,(0,0)) 
-        snake.movimento_c()
-        text2.aparece_na_tela2(90,5)
-        
+        text5.aparece_na_tela(80,130)
+        text6.aparece_na_tela(60,160)
+        pygame.display.update()
         # movimentação com as teclas
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                jogo = False
+                antesdojogo=False
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT and snake.vel_x != tamanho:
-                    snake.vel_y = 0
-                    snake.vel_x = -tamanho
-                if event.key == pygame.K_RIGHT and snake.vel_x != -tamanho:
-                    snake.vel_y = 0
-                    snake.vel_x = tamanho
-                if event.key == pygame.K_UP and snake.vel_y != tamanho:
-                    snake.vel_x = 0
-                    snake.vel_y = -tamanho
-                if event.key == pygame.K_DOWN and snake.vel_y != -tamanho:
-                    snake.vel_x = 0
-                    snake.vel_y = tamanho
-        
-        
-        # implementação do movimento da cobra
-        snake.x += snake.vel_x
-        snake.y += snake.vel_y
-    
-        # implementação das funções gerais
-        apple.imagem_m()
-        snake.resto()
-        snake.imagem_c()
-        snake.morte() 
-    
-        # funções que definem a colisão cobra+maça
-        if snake.x == apple.x and snake.y == apple.y:
-            apple.x = randint(0,(largura-tamanho)/10)*10
-            apple.y = randint(0,(altura-tamanho)/10)*10
-            snake.cobra_comp += 1
-            snake.pontos += 1
-            text2.atualiza_pontos(snake.pontos)
-        
-        # tela de fim de jogo
-        while fimdejogo:
-                tela.fill(preto)
-                text.aparece_na_tela(95,130)
-                text2.aparece_na_tela2(95,160)
-                text3.aparece_na_tela(175,210)
-                text4.aparece_na_tela(5,210)
-                pygame.display.update()
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
-                        jogo = False
-                        fimdejogo= False
-                    if event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_SPACE:
-                            fimdejogo=False
-                            jogo=True
-                            snake.recomeco()
-                            text2.atualiza_pontos(snake.pontos)
-                            pygame.mixer.music.load(arquivo)
-                            pygame.mixer.music.set_volume(0.1)
-                            pygame.mixer.music.play(-1)
-        
-                            
+                if event.key == pygame.K_c:
+                    jogo=True
 
-        # definição da colisão da cobra com as paredes        
-        if snake.x + tamanho> largura:
-                fimdejogo=True
-        if snake.x < 0:
-                fimdejogo=True
-        if snake.y + tamanho> altura:
-                fimdejogo=True
-        if snake.y < 0:
-                fimdejogo=True
-        if snake.fimdejogo == True:
-                fimdejogo=True
-        if fimdejogo == True:
-            # música do fim de jogo
-            pygame.mixer.music.pause()
-            pygame.mixer.music.load(arquivo1)
-            pygame.mixer.music.set_volume(0.1) 
-            pygame.mixer.music.play(1)
+     #iniciamos loop do jogo
+        while jogo:
+            # aplicação dos parâmetros no loop
+            fps.tick(15)
+            tela.blit(terra_tela,(0,0)) 
+            snake.movimento_c()
+            text2.aparece_na_tela2(90,5)
+            
+            # movimentação com as teclas
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    jogo = False
+                    antesdojogo = False
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_LEFT and snake.vel_x != tamanho:
+                        snake.vel_y = 0
+                        snake.vel_x = -tamanho
+                    if event.key == pygame.K_RIGHT and snake.vel_x != -tamanho:
+                        snake.vel_y = 0
+                        snake.vel_x = tamanho
+                    if event.key == pygame.K_UP and snake.vel_y != tamanho:
+                        snake.vel_x = 0
+                        snake.vel_y = -tamanho
+                    if event.key == pygame.K_DOWN and snake.vel_y != -tamanho:
+                        snake.vel_x = 0
+                        snake.vel_y = tamanho
+            
+            
+            # implementação do movimento da cobra
+            snake.x += snake.vel_x
+            snake.y += snake.vel_y
+        
+            # implementação das funções gerais
+            apple.imagem_m()
+            snake.resto()
+            snake.imagem_c()
+            snake.morte() 
+        
+            # funções que definem a colisão cobra+maça
+            if snake.x == apple.x and snake.y == apple.y:
+                apple.x = randint(0,(largura-tamanho)/10)*10
+                apple.y = randint(0,(altura-tamanho)/10)*10
+                snake.cobra_comp += 1
+                snake.pontos += 1
+                text2.atualiza_pontos(snake.pontos)
+            
+            # tela de fim de jogo
+            while fimdejogo:
+                    tela.fill(preto)
+                    text.aparece_na_tela(95,130)
+                    text2.aparece_na_tela2(95,160)
+                    text3.aparece_na_tela(175,210)
+                    text4.aparece_na_tela(5,210)
+                    pygame.display.update()
+                    for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
+                            jogo = False
+                            fimdejogo = False
+                            antesdojogo = False
+                        if event.type == pygame.KEYDOWN:
+                            if event.key == pygame.K_SPACE:
+                                fimdejogo=False
+                                jogo=True
+                                snake.recomeco()
+                                text2.atualiza_pontos(snake.pontos)
+                                pygame.mixer.music.load(arquivo)
+                                pygame.mixer.music.set_volume(0.1)
+                                pygame.mixer.music.play(-1)
+            
+                                
 
-        # atualização da tela em loop
-        pygame.display.update()
+            # definição da colisão da cobra com as paredes        
+            if snake.x + tamanho> largura:
+                    fimdejogo=True
+            if snake.x < 0:
+                    fimdejogo=True
+            if snake.y + tamanho> altura:
+                    fimdejogo=True
+            if snake.y < 0:
+                    fimdejogo=True
+            if snake.fimdejogo == True:
+                    fimdejogo=True
+            if fimdejogo == True:
+                # música do fim de jogo
+                pygame.mixer.music.pause()
+                pygame.mixer.music.load(arquivo1)
+                pygame.mixer.music.set_volume(0.1) 
+                pygame.mixer.music.play(1)
+
+            # atualização da tela em loop
+            pygame.display.update()
 if __name__ == "__main__":
     main()
 
