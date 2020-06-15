@@ -3,6 +3,8 @@
 
 # JOGO DA COBRA
 
+# Objetivo do jogo:
+Comer o máximo de maçãs sem encostar nos limites da tela ou no próprio corpo da cobra!
 
 # Instruções do jogo:
 
@@ -22,7 +24,7 @@ Formas de perder o jogo: Colisão com os limites do jogo ou com o próprio corpo
 https://github.com/Guilhermeasper/SnakePygame
 
 
-# Link do vídeo do jogo em funcionamento:
+# Link do vídeo do jogo em funcionamento (no Youtube):
 
 
 
