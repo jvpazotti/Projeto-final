@@ -36,6 +36,11 @@ def main():
     terra_tela = pygame.transform.scale(terra_tela,(largura,altura)) 
 
 
+    def randomiza_posicao():
+        coordenada_x = randint(0,(largura-tamanho)/10)*10
+        coordenada_y = randint(0,(altura-tamanho)/10)*10
+        return coordenada_x, coordenada_y
+
     #definimos do que o nosso texto é composto a partir da seguinte classe:
     
     #podemos fazer uma superclasse de texto pois pode dividir texto com ponto e sem ponto
@@ -75,21 +80,25 @@ def main():
 
     class Maca:
         def __init__(self):
-            self.x = randint(0,(largura-tamanho)/10)*10
-            self.y = randint(0,(altura-tamanho)/10)*10
+            # self.x = randint(0,(largura-tamanho)/10)*10
+            # self.y = randint(0,(altura-tamanho)/10)*10
+            self.x, self.y = randomiza_posicao()
         def imagem_m(self):
             pygame.draw.rect(tela, vermelho, [self.x, self.y, tamanho, tamanho])
         
         #Essa função faz nada no código, pode ser retirada
         def posicao_m(self):
-            self.x = randint(0,(largura-tamanho)/10)*10
-            self.y = randint(0,(altura-tamanho)/10)*10
+            # self.x = randint(0,(largura-tamanho)/10)*10
+            # self.y = randint(0,(altura-tamanho)/10)*10
+            self.x, self.y = randomiza_posicao()
+
 
     #definimos do que a nossa cobra é composta a partir da seguinte classe: 
     class Cobra:
         def __init__(self):
-            self.x = randint(0,(largura-tamanho)/10)*10
-            self.y = randint(0,(altura-tamanho)/10)*10
+            # self.x = randint(0,(largura-tamanho)/10)*10
+            # self.y = randint(0,(altura-tamanho)/10)*10
+            self.x, self.y = randomiza_posicao()
             self.vel_x = 0
             self.vel_y = 0
             self.cobra_xy = []
@@ -114,8 +123,9 @@ def main():
                 self.fimdejogo = True
         
         def recomeco(self):
-            self.x = randint(0,(largura-tamanho)/10)*10
-            self.y = randint(0,(altura-tamanho)/10)*10
+            # self.x = randint(0,(largura-tamanho)/10)*10
+            # self.y = randint(0,(altura-tamanho)/10)*10
+            self.x, self.y = randomiza_posicao()
             self.vel_x = 0
             self.vel_y = 0
             self.cobra_xy = []
@@ -193,8 +203,9 @@ def main():
         
             # funções que definem a colisão cobra+maça
             if snake.x == apple.x and snake.y == apple.y:
-                apple.x = randint(0,(largura-tamanho)/10)*10
-                apple.y = randint(0,(altura-tamanho)/10)*10
+                # apple.x = randint(0,(largura-tamanho)/10)*10
+                # apple.y = randint(0,(altura-tamanho)/10)*10
+                apple.x, apple.y = randomiza_posicao()
                 snake.cobra_comp += 1
                 #snake.pontos += 1
                 text2.pontos+=1
