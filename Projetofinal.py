@@ -4,6 +4,7 @@ import pygame
 from random import randint
 import os
 
+
 def main():
     # inicializamos o pygame
     pygame.init() 
@@ -36,31 +37,50 @@ def main():
 
 
     #definimos do que o nosso texto é composto a partir da seguinte classe:
+
+    #podemos fazer uma superclasse de texto pois pode dividir texto com ponto e sem ponto
     class Texto:
-        def __init__(self, mensagem, cor, tamanho,pontos=0):
+        def __init__(self, mensagem, cor, tamanho):#pontos=0):
             self.fonte_texto = pygame.font.SysFont(None, tamanho)
             self.cor=cor
             self.mensagem=mensagem
             self.texto = self.fonte_texto.render(self.mensagem, True, self.cor)
-            self.texto2 = self.fonte_texto.render(self.mensagem+str(pontos) , True, self.cor)  
+            #self.texto2 = self.fonte_texto.render(self.mensagem+str(pontos) , True, self.cor)  
         
         def aparece_na_tela(self, x, y):
             tela.blit(self.texto, [x,y])
         
-        def aparece_na_tela2(self, x, y):
-            tela.blit(self.texto2, [x,y])
+        #def aparece_na_tela2(self, x, y):
+           # tela.blit(self.texto2, [x,y])
         
         
+        #def atualiza_pontos(self,pontos):
+            #self.texto2 = self.fonte_texto.render(self.mensagem+str(pontos) , True, self.cor)  
+
+    # Subclasse de texto para separar texto com pontuação de texto sem pontuação
+    class TextoPontos(Texto):
+        def __init__(self, mensagem, cor,tamanho):
+            super().__init__(mensagem,cor,tamanho) 
+            self.fonte_texto = pygame.font.SysFont(None, tamanho)    
+            self.pontos=0
+            self.texto = self.fonte_texto.render(self.mensagem+str(self.pontos) , True, self.cor)
         def atualiza_pontos(self,pontos):
-            self.texto2 = self.fonte_texto.render(self.mensagem+str(pontos) , True, self.cor)  
-        
+            self.texto = self.fonte_texto.render(self.mensagem+str(pontos) , True, self.cor)
+
+        def restart(self):
+            self.pontos = 0
     #definimos do que a nossa maçã é composta a partir da seguinte classe: 
+
+    #funcao para juntar as contas de posicao
+
     class Maca:
         def __init__(self):
             self.x = randint(0,(largura-tamanho)/10)*10
             self.y = randint(0,(altura-tamanho)/10)*10
         def imagem_m(self):
             pygame.draw.rect(tela, vermelho, [self.x, self.y, tamanho, tamanho])
+        
+        #Essa função faz nada no código, pode ser retirada
         def posicao_m(self):
             self.x = randint(0,(largura-tamanho)/10)*10
             self.y = randint(0,(altura-tamanho)/10)*10
@@ -75,8 +95,9 @@ def main():
             self.cobra_xy = []
             self.cobra_comp = 1
             self.cobra_0 = []
-            self.pontos = 0
+            #self.pontos = 0
             self.fimdejogo = False
+        
         def movimento_c(self):
             self.cobra_0 = [self.x,self.y]
             self.cobra_xy.append(self.cobra_0) 
@@ -99,9 +120,9 @@ def main():
             self.vel_y = 0
             self.cobra_xy = []
             self.cobra_comp = 1
-            self.cobra_0 = []
-            self.pontos = 0
-            self.fimdejogo = False
+            #self.cobra_0 = []
+            #self.pontos = 0
+            #self.fimdejogo = False
             
     # criamos variaveis para iniciar/encerrar o loop 
     jogo = False
@@ -112,7 +133,7 @@ def main():
     snake = Cobra()
     apple = Maca()
     text = Texto("Game Over", vermelho, 35)
-    text2 = Texto("Pontuação: " , branco, 27)
+    text2 = TextoPontos("Pontuação: " , branco, 27)
     text3 = Texto("Aperte espaço",branco,27)
     text4 = Texto("Deseja continuar?",branco,27)
     text5= Texto("Snake Game",branco,35)
@@ -138,7 +159,7 @@ def main():
             fps.tick(15)
             tela.blit(terra_tela,(0,0)) 
             snake.movimento_c()
-            text2.aparece_na_tela2(90,5)
+            text2.aparece_na_tela(90,5)
             
             # movimentação com as teclas
             for event in pygame.event.get():
@@ -175,14 +196,15 @@ def main():
                 apple.x = randint(0,(largura-tamanho)/10)*10
                 apple.y = randint(0,(altura-tamanho)/10)*10
                 snake.cobra_comp += 1
-                snake.pontos += 1
-                text2.atualiza_pontos(snake.pontos)
+                #snake.pontos += 1
+                text2.pontos+=1
+                text2.atualiza_pontos(text2.pontos)
             
             # tela de fim de jogo
             while fimdejogo:
                     tela.fill(preto)
                     text.aparece_na_tela(95,130)
-                    text2.aparece_na_tela2(95,160)
+                    text2.aparece_na_tela(95,160)
                     text3.aparece_na_tela(175,210)
                     text4.aparece_na_tela(5,210)
                     pygame.display.update()
@@ -196,7 +218,9 @@ def main():
                                 fimdejogo=False
                                 jogo=True
                                 snake.recomeco()
-                                text2.atualiza_pontos(snake.pontos)
+                                text2.restart()
+                                apple.posicao_m()
+                                text2.atualiza_pontos(text2.pontos)
                                 pygame.mixer.music.load(arquivo)
                                 pygame.mixer.music.set_volume(0.1)
                                 pygame.mixer.music.play(-1)
