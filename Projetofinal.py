@@ -37,7 +37,7 @@ def main():
 
 
     #definimos do que o nosso texto é composto a partir da seguinte classe:
-
+    
     #podemos fazer uma superclasse de texto pois pode dividir texto com ponto e sem ponto
     class Texto:
         def __init__(self, mensagem, cor, tamanho):#pontos=0):
