@@ -41,6 +41,9 @@ def main():
         coordenada_y = randint(0,(altura-tamanho)/10)*10
         return coordenada_x, coordenada_y
 
+    def determina_velocidade(velocidade_x, velocidade_y):
+        return velocidade_x, velocidade_y
+
     #definimos do que o nosso texto é composto a partir da seguinte classe:
     
     #podemos fazer uma superclasse de texto pois pode dividir texto com ponto e sem ponto
@@ -99,8 +102,9 @@ def main():
             # self.x = randint(0,(largura-tamanho)/10)*10
             # self.y = randint(0,(altura-tamanho)/10)*10
             self.x, self.y = randomiza_posicao()
-            self.vel_x = 0
-            self.vel_y = 0
+            #self.vel_x = 0
+            #self.vel_y = 0
+            self.vel_x, self.vel_y = determina_velocidade(0,0)
             self.cobra_xy = []
             self.cobra_comp = 1
             self.cobra_0 = []
@@ -126,8 +130,9 @@ def main():
             # self.x = randint(0,(largura-tamanho)/10)*10
             # self.y = randint(0,(altura-tamanho)/10)*10
             self.x, self.y = randomiza_posicao()
-            self.vel_x = 0
-            self.vel_y = 0
+            #self.vel_x = 0
+            #self.vel_y = 0
+            self.vel_x, self.vel_y = determina_velocidade(0,0)
             self.cobra_xy = []
             self.cobra_comp = 1
             #self.cobra_0 = []
@@ -178,19 +183,23 @@ def main():
                     antesdojogo = False
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_LEFT and snake.vel_x != tamanho:
-                        snake.vel_y = 0
-                        snake.vel_x = -tamanho
+                        #snake.vel_y = 0
+                        #snake.vel_x = -tamanho
+                        snake.vel_x, snake.vel_y = determina_velocidade(-tamanho, 0)
                     if event.key == pygame.K_RIGHT and snake.vel_x != -tamanho:
                         snake.vel_y = 0
                         snake.vel_x = tamanho
+                        snake.vel_x, snake.vel_y = determina_velocidade(tamanho,0)
                     if event.key == pygame.K_UP and snake.vel_y != tamanho:
-                        snake.vel_x = 0
-                        snake.vel_y = -tamanho
+                        #snake.vel_x = 0
+                        #snake.vel_y = -tamanho
+                        snake.vel_x, snake.vel_y = determina_velocidade(0,-tamanho)
                     if event.key == pygame.K_DOWN and snake.vel_y != -tamanho:
-                        snake.vel_x = 0
-                        snake.vel_y = tamanho
+                        #snake.vel_x = 0
+                        #snake.vel_y = tamanho
+                        snake.vel_x, snake.vel_y = determina_velocidade(0,tamanho)
             
-            
+           
             # implementação do movimento da cobra
             snake.x += snake.vel_x
             snake.y += snake.vel_y
