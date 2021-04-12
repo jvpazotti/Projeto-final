@@ -52,18 +52,11 @@ def main():
             self.fonte_texto = pygame.font.SysFont(None, tamanho)
             self.cor=cor
             self.mensagem=mensagem
-            self.texto = self.fonte_texto.render(self.mensagem, True, self.cor)
-            #self.texto2 = self.fonte_texto.render(self.mensagem+str(pontos) , True, self.cor)  
+            self.texto = self.fonte_texto.render(self.mensagem, True, self.cor)  
         
         def aparece_na_tela(self, x, y):
             tela.blit(self.texto, [x,y])
-        
-        #def aparece_na_tela2(self, x, y):
-           # tela.blit(self.texto2, [x,y])
-        
-        
-        #def atualiza_pontos(self,pontos):
-            #self.texto2 = self.fonte_texto.render(self.mensagem+str(pontos) , True, self.cor)  
+         
 
     # Subclasse de texto para separar texto com pontuação de texto sem pontuação
     class TextoPontos(Texto):
@@ -79,7 +72,7 @@ def main():
             self.pontos = 0
     #definimos do que a nossa maçã é composta a partir da seguinte classe: 
 
-    #funcao para juntar as contas de posicao
+    
 
     class Maca:
         def __init__(self):
@@ -89,26 +82,19 @@ def main():
         def imagem_m(self):
             pygame.draw.rect(tela, vermelho, [self.x, self.y, tamanho, tamanho])
         
-        #Essa função faz nada no código, pode ser retirada
+        
         def posicao_m(self):
-            # self.x = randint(0,(largura-tamanho)/10)*10
-            # self.y = randint(0,(altura-tamanho)/10)*10
             self.x, self.y = randomiza_posicao()
 
 
     #definimos do que a nossa cobra é composta a partir da seguinte classe: 
     class Cobra:
         def __init__(self):
-            # self.x = randint(0,(largura-tamanho)/10)*10
-            # self.y = randint(0,(altura-tamanho)/10)*10
             self.x, self.y = randomiza_posicao()
-            #self.vel_x = 0
-            #self.vel_y = 0
             self.vel_x, self.vel_y = determina_velocidade(0,0)
             self.cobra_xy = []
             self.cobra_comp = 1
             self.cobra_0 = []
-            #self.pontos = 0
             self.fimdejogo = False
         
         def movimento_c(self):
@@ -127,17 +113,11 @@ def main():
                 self.fimdejogo = True
         
         def recomeco(self):
-            # self.x = randint(0,(largura-tamanho)/10)*10
-            # self.y = randint(0,(altura-tamanho)/10)*10
             self.x, self.y = randomiza_posicao()
-            #self.vel_x = 0
-            #self.vel_y = 0
             self.vel_x, self.vel_y = determina_velocidade(0,0)
             self.cobra_xy = []
             self.cobra_comp = 1
-            #self.cobra_0 = []
-            #self.pontos = 0
-            #self.fimdejogo = False
+            
             
     # criamos variaveis para iniciar/encerrar o loop 
     jogo = False
@@ -183,20 +163,14 @@ def main():
                     antesdojogo = False
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_LEFT and snake.vel_x != tamanho:
-                        #snake.vel_y = 0
-                        #snake.vel_x = -tamanho
                         snake.vel_x, snake.vel_y = determina_velocidade(-tamanho, 0)
                     if event.key == pygame.K_RIGHT and snake.vel_x != -tamanho:
                         snake.vel_y = 0
                         snake.vel_x = tamanho
                         snake.vel_x, snake.vel_y = determina_velocidade(tamanho,0)
                     if event.key == pygame.K_UP and snake.vel_y != tamanho:
-                        #snake.vel_x = 0
-                        #snake.vel_y = -tamanho
                         snake.vel_x, snake.vel_y = determina_velocidade(0,-tamanho)
                     if event.key == pygame.K_DOWN and snake.vel_y != -tamanho:
-                        #snake.vel_x = 0
-                        #snake.vel_y = tamanho
                         snake.vel_x, snake.vel_y = determina_velocidade(0,tamanho)
             
            
@@ -212,11 +186,8 @@ def main():
         
             # funções que definem a colisão cobra+maça
             if snake.x == apple.x and snake.y == apple.y:
-                # apple.x = randint(0,(largura-tamanho)/10)*10
-                # apple.y = randint(0,(altura-tamanho)/10)*10
                 apple.x, apple.y = randomiza_posicao()
                 snake.cobra_comp += 1
-                #snake.pontos += 1
                 text2.pontos+=1
                 text2.atualiza_pontos(text2.pontos)
             
